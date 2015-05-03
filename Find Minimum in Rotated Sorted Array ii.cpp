@@ -24,8 +24,8 @@ public:
                 low = mid + 1;
             else if (nums[mid] < nums[high])
                 high = mid;
-            else if(nums[mid] == nums[high])
-                high--;
+            else if(nums[mid] == nums[high])         //与无重复的数组比，只多了这一句；
+                high--;                              //因为nums[mid] == nums[high]时，无法确定最小值在nums[mid]的右边还是左边
         }
         return nums[low];
     }
