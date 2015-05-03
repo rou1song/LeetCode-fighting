@@ -11,7 +11,8 @@
  You may assume no duplicate exists in the array.
 */
 //网上大部分的做法，nums[mid] > nums[high]，和nums[high]做比较，而不是nums[low]
-//如此可以不用判断单调递增的情况，因为递增也会一步步收敛到nums[low]
+//如此可以不用判断单调递增的情况，因为递增也会一步步收敛到nums[low] ； 
+//或者加一句到while循环条件里：while (low < high && nums[low] > nums[high]) 
 class Solution1 {
 public:
     int findMin(vector<int>& nums) {
