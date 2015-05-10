@@ -13,7 +13,7 @@
              This solution is much easier to understand.
  Solution 2: by Yao Liu.
 */
-//复杂度O（nlogn），先排序，后做
+//暴力做法：复杂度O（nlogn），先排序，后做。
 class Solution1 {
 public:
     static bool cmp(int a, int b) {
@@ -46,16 +46,14 @@ public:
     int longestConsecutive(vector<int> &num) {
         unordered_set<int> s;
         int res = 0;
-        for (int i = 0; i < num.size(); ++i)
+        for (int i = 0; i < num.size(); ++i)        //或：unordered_set<int> s(num.begin(), num.end());
             s.insert(num[i]);
-        for (int i = 0; i < num.size() && !s.empty(); ++i) {
+        for (int i = 0; i < num.size(); ++i) {
             if (s.find(num[i]) == s.end())
                 continue;
             int upper = num[i], lower = num[i];
-            while (s.find(upper+1) != s.end())
-                s.erase(++upper);
-            while (s.find(lower-1) != s.end())
-                s.erase(--lower);
+            while (s.find(upper+1) != s.end())  s.erase(++upper);     //删除元素，保证不做重复操作，O（n）
+            while (s.find(lower-1) != s.end())  s.erase(--lower);
             if (upper != lower)
                 s.erase(num[i]);
             res = max(res, upper - lower + 1);
@@ -90,7 +88,7 @@ public:
 //第三种解法的多条件判断版本
 class Solution4 {
 public:
-     int longestConsecutive2(vector<int> &num) {
+     int longestConsecutive(vector<int> &num) {
         int longest = 0;
         unordered_map<int, int> table;
         for(int i = 0, count = num.size(); i < count; ++i) 
