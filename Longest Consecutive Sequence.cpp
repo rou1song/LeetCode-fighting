@@ -62,7 +62,7 @@ public:
     }
 }
 
-//利用map的原理： val如果没在map中出现过，则 m[val] = 0；
+//代码最简：利用map的原理： val如果没在map中出现过，则 m[val] = 0；
 /* use a hash map to store boundary information of consecutive sequence for each element;  4 cases when a new element i reached:
     1) neither i+1 nor i-1 has been seen: m[i]=1;
     2) both i+1 and i-1 have been seen: extend m[i+m[i+1]] and m[i-m[i-1]] to each other;
