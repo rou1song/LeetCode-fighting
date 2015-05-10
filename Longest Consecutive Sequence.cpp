@@ -63,3 +63,53 @@ public:
         return res;
     }
 }
+
+//利用map的原理： val如果没在map中出现过，则 m[val] = 0；
+/* use a hash map to store boundary information of consecutive sequence for each element;  4 cases when a new element i reached:
+    1) neither i+1 nor i-1 has been seen: m[i]=1;
+    2) both i+1 and i-1 have been seen: extend m[i+m[i+1]] and m[i-m[i-1]] to each other;
+    3) only i+1 has been seen: extend m[i+m[i+1]] and m[i] to each other;
+    4) only i-1 has been seen: extend m[i-m[i-1]] and m[i] to each other.
+*/
+class Solution3 {
+public:
+    int longestConsecutive(vector<int>& num) {
+        unordered_map<int, int> m;
+        int res = 0;
+        int val;
+        for (int k = 0; k < num.size(); k++) {
+            val = num[k];
+            if (m[val]) continue;             //如果val之前出现过，
+            res = max(r, m[val] = m[val + m[val + 1]] = m[val - m[val - 1]] = m[val + 1] + m[val - 1] + 1); 
+            //更新每一段的left和right端点值，值都是本段的长度，而段中间元素的value值就不care了
+        }
+        return res;
+    }
+};
+
+//第三种解法的多条件判断版本
+class Solution4 {
+public:
+     int longestConsecutive2(vector<int> &num) {
+        int longest = 0;
+        unordered_map<int, int> table;
+        for(int i = 0, count = num.size(); i < count; ++i) 
+            if(table.find(num[i]) == table.end()) {
+                int val = num[i], update;
+                if(table.find(val - 1) != table.end() && table.find(val + 1) != table.end())
+                    // assigning to table[val] here is only for adding val as a key of the hashtable.
+                    update = table[val] = 
+                             table[val - table[val - 1]] = 
+                             table[val + table[val + 1]] = 
+                             table[val - 1] + table[val + 1] + 1; 
+                else if(table.find(val - 1) != table.end())
+                    update = table[val] = ++table[val - table[val - 1]];
+                else if(table.find(val + 1) != table.end())
+                    update = table[val] = ++table[val + table[val + 1]];
+                else 
+                    update = table[val] = 1;
+                longest = max(longest, update);
+            }
+        return longest;
+    }
+};
