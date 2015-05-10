@@ -40,7 +40,7 @@ public:
         return maxCount;
     }
 };
-
+//O(n) ,使用set来做，每次把当前数相连的数全部删除并求得upper，lower。 赞！！！
 class Solution2 {
 public:
     int longestConsecutive(vector<int> &num) {
@@ -48,8 +48,7 @@ public:
         int res = 0;
         for (int i = 0; i < num.size(); ++i)
             s.insert(num[i]);
-        for (int i = 0; i < num.size() && !s.empty(); ++i)
-        {
+        for (int i = 0; i < num.size() && !s.empty(); ++i) {
             if (s.find(num[i]) == s.end())
                 continue;
             int upper = num[i], lower = num[i];
