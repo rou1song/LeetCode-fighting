@@ -17,11 +17,9 @@ class Solution1 {
 public:
     unordered_set<int> s;
     bool isHappy(int n) {
-        int i;
         int sum = 0;
         while(n != 0) {
-            i = n%10;
-            sum += i*i;
+            sum += (n%10)*(n%10);
             n = n/10;
         }
         if(sum == 1)  return true;
@@ -30,6 +28,21 @@ public:
         return isHappy(sum);
     }
 };
+//尾递归转换成迭代形式代码
+    bool isHappy(int n) {
+        unordered_set<int> s;
+        while(n != 1) {
+            int sum = 0;
+            while(n != 0) {
+                sum += (n%10)*(n%10);
+                n = n/10;
+            }
+            if(s.find(sum) != s.end()) return false;
+            s.insert(sum);
+            n = sum;
+        }
+        return true;
+    }
 
 //之前做过的 list cycle detection。 这样不需要set的空间，但会有重复计算，时间花更多
 class Solution2 {
