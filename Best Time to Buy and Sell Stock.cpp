@@ -8,8 +8,9 @@
  design an algorithm to find the maximum profit.
  */
  
- //Solution: 找到下一个比现在的minp更小的点
- //方法1：然后更新 prices[i] - minP;  方法2： 然后置maxP = 0； 计算下一段的最大profit = max(profit, maxP - minP);
+ //Solution: 动态规划题目！类似求数组中最大连续子序列的和。 
+ //方法1：找到下一个比现在的minp更小的点，然后更新当前节点i能得到的最大profit： prices[i] - minP;  最终 profit = max（profit， price[i] -minP）
+ //方法2：找到下一个比现在的minp更小的点， 然后置maxP = 0； 计算下一段的最大profit = max(profit, maxP - minP);
  
 class Solution {
 public:
